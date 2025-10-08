@@ -20,7 +20,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
+      <body
+        className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}
+        suppressHydrationWarning
+      >
         <ThemeProvider defaultTheme="system" storageKey="portfolio-theme">
           <Suspense fallback={null}>{children}</Suspense>
         </ThemeProvider>

@@ -2,7 +2,7 @@ export interface Project {
   id: string
   title: string
   description: string
-  imageUrl: string
+  image: string
   technologies: string[]
   githubUrl?: string
   liveUrl?: string

@@ -1,14 +1,13 @@
 "use client"
 
-import type React from "react"
-
-import { useState } from "react"
 import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { X } from "lucide-react"
+import type React from "react"
+import { useState } from "react"
 
 type Project = {
   id: string
@@ -38,17 +37,38 @@ export function ProjectForm({ project, onSuccess, onCancel }: ProjectFormProps) 
     liveUrl: project?.liveUrl || "",
   })
 
+  const [file, setFile] = useState<File | null>(null);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
     try {
+      let imageUrl = project?.image || "";
+      if (file) {
+        const data = new FormData();
+        data.set('file', file);
+
+        const res = await fetch('/api/upload', {
+          method: 'POST',
+          body: data
+        });
+
+        if (res.ok) {
+          const { path } = await res.json();
+          imageUrl = path;
+        } else {
+          console.error("[v0] Error uploading image");
+          return;
+        }
+      }
+
       const url = project ? `/api/projects/${project.id}` : "/api/projects"
       const method = project ? "PUT" : "POST"
 
       await fetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, image: imageUrl }),
       })
 
       onSuccess()
@@ -99,13 +119,15 @@ export function ProjectForm({ project, onSuccess, onCancel }: ProjectFormProps) 
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="image">Image URL</Label>
+              <Label htmlFor="image">Project Image</Label>
               <Input
                 id="image"
-                type="url"
-                value={formData.image}
-                onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                placeholder="https://example.com/image.jpg"
+                type="file"
+                onChange={(e) => {
+                  if (e.target.files) {
+                    setFile(e.target.files[0]);
+                  }
+                }}
               />
             </div>
 

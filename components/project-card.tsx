@@ -13,7 +13,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
     <Card className="overflow-hidden flex flex-col h-full">
       <div className="relative h-48 w-full bg-muted">
         <Image
-          src={project.imageUrl || "/placeholder.svg?height=200&width=400&query=project"}
+          src={project.image || "/placeholder.svg?height=200&width=400&query=project"}
           alt={project.title}
           fill
           className="object-cover"
@@ -27,7 +27,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
       <CardContent className="flex-1">
         <div className="flex flex-wrap gap-2">
-          {project.technologies.map((tech) => (
+          {(Array.isArray(project.technologies)
+            ? project.technologies
+            : project.technologies.split(",").map((t) => t.trim())
+          ).map((tech) => (
             <span key={tech} className="px-2 py-1 text-xs rounded-md bg-secondary text-secondary-foreground">
               {tech}
             </span>

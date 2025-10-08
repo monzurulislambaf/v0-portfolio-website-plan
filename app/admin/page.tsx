@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useEffect, useState } from "react"
 import { Plus, Pencil, Trash2, Mail, Phone } from "lucide-react"
+import Image from "next/image"
 import { ProjectForm } from "@/components/project-form"
 import { ContactFormAdmin } from "@/components/contact-form-admin"
 import {
@@ -155,7 +156,15 @@ export default function AdminPage() {
               ) : (
                 <div className="space-y-4">
                   {projects.map((project) => (
-                    <Card key={project.id}>
+                    <Card key={project.id} className="overflow-hidden">
+                      <div className="relative h-48 w-full bg-muted">
+                        <Image
+                          src={project.image || "/placeholder.svg?height=200&width=400&query=project"}
+                          alt={project.title}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
                       <CardHeader>
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
