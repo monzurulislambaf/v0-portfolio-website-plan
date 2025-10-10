@@ -95,3 +95,18 @@ export function FloatingIcons() {
           }}
           transition={{
             duration: icon.duration,
+            delay: icon.delay,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+        >
+          <icon.Icon
+            size={icon.size}
+            style={{ color: icon.color }}
+            className="filter blur-sm"
+          />
+        </motion.div>
+      ))}
+    </div>
+  )
+}

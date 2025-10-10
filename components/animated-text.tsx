@@ -35,19 +35,22 @@ export function AnimatedText({
     visible: {
       opacity: 1,
       y: 0,
+      scale: 1,
       transition: {
         type: "spring",
-        damping: 12,
-        stiffness: 100,
+        damping: 15,
+        stiffness: 120,
+        velocity: 2,
       },
     },
     hidden: {
       opacity: 0,
-      y: 20,
+      y: 30,
+      scale: 0.8,
       transition: {
         type: "spring",
-        damping: 12,
-        stiffness: 100,
+        damping: 15,
+        stiffness: 120,
       },
     },
   }
@@ -55,7 +58,7 @@ export function AnimatedText({
   return (
     <motion.div
       ref={ref}
-      className={className}
+      className={`${className} inline-block`}
       variants={container}
       initial="hidden"
       animate={inView ? "visible" : "hidden"}
@@ -64,7 +67,15 @@ export function AnimatedText({
         <motion.span
           key={index}
           variants={child}
-          style={{ display: "inline-block", marginRight: "0.25em" }}
+          className="inline-block mr-3 hover:text-primary transition-colors duration-300"
+          style={{
+            display: "inline-block",
+            marginRight: "0.75em",
+          }}
+          whileHover={{
+            scale: 1.1,
+            color: "var(--primary)",
+          }}
         >
           {word}
         </motion.span>
