@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 2,
+  "dockerfilePath": "./Dockerfile",
+  "dockerComposeFilePath": "",
+  "captainDefinition": {
+    "templateId": "node/14"
+  },
+  "volumes": [
+    {
+      "name": "portfolio-data",
+      "volumePath": "/app/data"
+    }
+  ]
+}
