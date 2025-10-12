@@ -9,10 +9,13 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  // For traditional server deployment
   output: 'standalone',
-  // For CapRover deployment
   trailingSlash: false,
   reactStrictMode: false,
+  // Production optimizations
+  poweredByHeader: false,
+  compress: true,
 }
 
 export default nextConfig

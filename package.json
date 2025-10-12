@@ -6,10 +6,7 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
-    "start": "next start",
-    "docker:build": "docker build -t portfolio-website .",
-    "docker:run": "docker run -p 3000:3000 portfolio-website",
-    "deploy:caprover": "npm run build && caprover deploy"
+    "start": "next start"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
